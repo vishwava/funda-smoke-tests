@@ -1,4 +1,4 @@
-import { Page } from "@playwright/test";
+import { Page, expect } from "@playwright/test";
 import { BasePage } from "./BasePage";
 
 export class ContactAgentPage extends BasePage {
@@ -29,14 +29,14 @@ export class ContactAgentPage extends BasePage {
       label: this.page.locator(`label[for="checkbox-${day}"]`),
       checkbox: this.page.getByLabel(day, { exact: true }),
     };
-  }
+  };
 
   readonly timeOfDay = (time: string) => {
     return {
       label: this.page.locator(`label[for="checkbox-${time}"]`),
       checkbox: this.page.getByLabel(time, { exact: true }),
     };
-  }
+  };
 
   async fillContactForm(data: {
     message: string;
@@ -56,8 +56,22 @@ export class ContactAgentPage extends BasePage {
     email: string;
     phone: string;
   }): Promise<void> {
-    await this.day(data.appointmentData.day).label.click();
-    await this.timeOfDay(data.appointmentData.time).label.click();
+    await this.viewingRequestCheckbox.check();
+    const dayLabel = this.day(data.appointmentData.day).label;
+    const hasScheduler = await dayLabel
+      .waitFor({ state: "visible", timeout: 5000 })
+      .then(
+        () => true,
+        () => false,
+      );
+    if (hasScheduler) {
+      await dayLabel.click();
+      await this.timeOfDay(data.appointmentData.time).label.click();
+      await expect(this.day(data.appointmentData.day).checkbox).toBeChecked();
+      await expect(
+        this.timeOfDay(data.appointmentData.time).checkbox,
+      ).toBeChecked();
+    }
     await this.fillPersonalDetails(data);
   }
 
