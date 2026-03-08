@@ -1,4 +1,4 @@
-import { Page } from "@playwright/test";
+import { Page, expect } from "@playwright/test";
 import { BasePage } from "./BasePage";
 import { CITY } from "../setup/constants";
 
@@ -18,5 +18,12 @@ export class SearchResultsPage extends BasePage {
 
   async open(path: string): Promise<void> {
     await this.page.goto(path);
+  }
+
+  async verifyResultsLoaded(): Promise<void> {
+    await expect(this.resultCountInCity).toBeVisible();
+    if ((await this.listingCards.count()) > 0) {
+      await expect(this.listingCards.first()).toBeVisible();
+    }
   }
 }

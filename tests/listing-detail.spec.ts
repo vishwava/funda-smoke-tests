@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { SearchResultsPage } from "../pages/SearchResultsPage";
 import { ListingDetailPage } from "../pages/ListingDetailPage";
-import { BUY_IN_CITY } from "../setup/constants";
+import { BUY_IN_CITY, isValidDutchPhoneNumber } from "../setup/constants";
 
 test.describe("Listing detail", () => {
   let listingDetailPage: ListingDetailPage;
@@ -33,7 +33,7 @@ test.describe("Listing detail", () => {
       await listingDetailPage.agentSection.revealPhoneNumber();
     await expect(phoneNumber).toBeVisible();
 
-    const href = await phoneNumber.getAttribute("href");
-    expect(href).toMatch(/^tel:0\d{2}\s\d{7}$/);
+    const phone = await phoneNumber.getAttribute("href");
+    expect(isValidDutchPhoneNumber(phone!)).toBe(true);
   });
 });

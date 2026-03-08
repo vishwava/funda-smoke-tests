@@ -30,9 +30,9 @@ export class ListingDetailPage extends BasePage {
       .locator("h3")
       .filter({ has: this.page.locator('a[href*="/makelaar/"]') })
       .locator('a[href*="/makelaar/"]'),
-    showPhoneLink: this.page.getByRole("button", {
-      name: "Toon telefoonnummer",
-    }),
+    showPhoneLink: this.page
+      .getByRole("button", { name: "Toon telefoonnummer" })
+      .first(),
     phoneNumber: this.page.locator('a[href^="tel:"]').last(),
     contactFormLink: this.page
       .getByRole("link", { name: "Neem contact op" })

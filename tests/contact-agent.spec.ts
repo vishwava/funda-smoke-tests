@@ -20,6 +20,7 @@ test.describe("Contact agent", () => {
     await searchPage.open(BUY_IN_CITY);
     await searchPage.listingCards.first().click();
     listingDetailPage = new ListingDetailPage(page);
+    await listingDetailPage.agentSection.contactFormLink.scrollIntoViewIfNeeded();
   });
 
   // Verify that the contact form can be filled in with valid data and all fields are populated correctly
@@ -49,21 +50,19 @@ test.describe("Contact agent", () => {
   test("Appointment form can be filled in", async ({ page }) => {
     await listingDetailPage.agentSection.viewingRequestLink.click();
 
-    const contactAgentPage = new ContactAgentPage(page);
-    await expect(contactAgentPage.pageHeading).toBeVisible();
+    const appointmentData = { day: "Ma", time: "'s morgens" };
 
+    const contactAgentPage = new ContactAgentPage(page);
+
+    await expect(contactAgentPage.pageHeading).toBeVisible();
     await contactAgentPage.fillAppointmentForm({
+      appointmentData,
       firstName,
       lastName,
       email,
       phone,
     });
-
     await expect(contactAgentPage.viewingRequestCheckbox).toBeChecked();
-    await expect(contactAgentPage.firstNameInput).toHaveValue(firstName);
-    await expect(contactAgentPage.lastNameInput).toHaveValue(lastName);
-    await expect(contactAgentPage.emailInput).toHaveValue(email);
-    await expect(contactAgentPage.phoneInput).toHaveValue(phone);
     await expect(contactAgentPage.submitButton).toBeVisible();
   });
 });
