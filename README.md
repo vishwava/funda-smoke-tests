@@ -8,7 +8,7 @@ Playwright smoke test suite for **[funda.nl](https://www.funda.nl)**, written in
 
 ```bash
 #Install dependencies
--npm install
+npm install
 
 #Install Playwright browsers
 npm run install:browsers
