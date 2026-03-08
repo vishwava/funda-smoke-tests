@@ -19,3 +19,7 @@ export const COMPARE_AGENTS_LINK_TEXT = "Vergelijk NVM-makelaars in de buurt";
 export const VIEW_STEPS_LINK_TEXT = "Bekijk de stappen";
 export const CONTACT_US_LINK_TEXT = "Vertel me meer";
 export const APPRAISAL_LINK_TEXT = "Doe de Waardecheck";
+
+// Matches Dutch phone values in local and international formats
+export const isValidDutchPhoneNumber = (phone: string): boolean =>
+  /^tel:(\(\+\d+\)\s?)?\d[\d\s-]{8,}$/.test(phone);

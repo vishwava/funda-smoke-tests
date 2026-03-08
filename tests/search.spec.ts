@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test } from "@playwright/test";
 import { SearchResultsPage } from "../pages/SearchResultsPage";
 import {
   BUY_IN_CITY,
@@ -14,31 +14,27 @@ test.describe("Search results", () => {
   test("Buy listing cards are visible", async ({ page }) => {
     searchPage = new SearchResultsPage(page);
     await searchPage.open(BUY_IN_CITY);
-    await expect(searchPage.listingCards.first()).toBeVisible();
-    await expect(searchPage.resultCountInCity).toBeVisible();
+    await searchPage.verifyResultsLoaded();
   });
 
   //Verify rent listing cards are visible
   test("Rent listing cards are visible", async ({ page }) => {
     searchPage = new SearchResultsPage(page);
     await searchPage.open(RENT_IN_CITY);
-    await expect(searchPage.listingCards.first()).toBeVisible();
-    await expect(searchPage.resultCountInCity).toBeVisible();
+    await searchPage.verifyResultsLoaded();
   });
 
   //Verify new build listing cards are visible
   test("New build listing cards are visible", async ({ page }) => {
     searchPage = new SearchResultsPage(page);
     await searchPage.open(NEWBUILD_IN_CITY);
-    await expect(searchPage.listingCards.first()).toBeVisible();
-    await expect(searchPage.resultCountInCity).toBeVisible();
+    await searchPage.verifyResultsLoaded();
   });
 
   //Verify recreational listing cards are visible
   test("Recreational listing cards are visible", async ({ page }) => {
     searchPage = new SearchResultsPage(page);
     await searchPage.open(RECREATIONAL_IN_CITY);
-    await expect(searchPage.listingCards.first()).toBeVisible();
-    await expect(searchPage.resultCountInCity).toBeVisible();
+    await searchPage.verifyResultsLoaded();
   });
 });

@@ -143,7 +143,7 @@ Navigates to the first buy listing in Amsterdam and tests agent contact form int
 **Appointment form can be filled in**
 
 - Opens the contact form and checks the `Bezichtiging aanvragen` checkbox to request a viewing
-- Fills in all personal detail fields using the same shared faker data
+- Fills in appointment data and personal detail fields using the same faker data
 - Asserts the checkbox is checked, each field reflects the entered value, and the submit button is visible
 
 > Neither test submits the form, avoiding real data being sent to funda.
