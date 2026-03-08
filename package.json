@@ -4,10 +4,12 @@
   "description": "Playwright TS smoke tests for funda.nl",
   "scripts": {
     "install:browsers": "playwright install chromium",
+    "build": "tsc --noEmit",
     "test": "playwright test --project=chromium",
     "test:headed": "playwright test --project=chromium --headed",
     "report": "playwright show-report",
-    "format": "tsc --noEmit && eslint . && prettier --write ."
+    "format": "tsc --noEmit && eslint . && prettier --write .",
+    "format:check": "eslint . && prettier --check ."
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
