@@ -4,7 +4,7 @@ import { BASE_URL, USER_AGENT } from "./setup/constants";
 
 export default defineConfig({
   testDir: "./tests",
-  timeout: 60_000,
+  timeout: 30_000,
   expect: {
     timeout: 5_000,
   },

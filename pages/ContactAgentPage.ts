@@ -1,4 +1,4 @@
-import { Page, expect } from "@playwright/test";
+import { Page } from "@playwright/test";
 import { BasePage } from "./BasePage";
 
 export class ContactAgentPage extends BasePage {
@@ -24,14 +24,18 @@ export class ContactAgentPage extends BasePage {
 
   readonly submitButton = this.page.getByRole("button", { name: "Verstuur" });
 
-  // Returns a locator for a day abbreviation label (e.g. 'Ma' for Monday)
-  dayLabel(day: string) {
-    return this.page.getByText(day, { exact: true });
+  readonly day = (day: string) => {
+    return {
+      label: this.page.locator(`label[for="checkbox-${day}"]`),
+      checkbox: this.page.getByLabel(day, { exact: true }),
+    };
   }
 
-  // Returns a locator for a part-of-day label by its checkbox id suffix (e.g. "'s morgens")
-  partOfDayLabel(time: string) {
-    return this.page.locator(`label[for="checkbox-${time}"]`);
+  readonly timeOfDay = (time: string) => {
+    return {
+      label: this.page.locator(`label[for="checkbox-${time}"]`),
+      checkbox: this.page.getByLabel(time, { exact: true }),
+    };
   }
 
   async fillContactForm(data: {
@@ -52,22 +56,8 @@ export class ContactAgentPage extends BasePage {
     email: string;
     phone: string;
   }): Promise<void> {
-    await this.viewingRequestCheckbox.check();
-    const dayButton = this.dayLabel(data.appointmentData.day);
-    const hasScheduler = await dayButton
-      .waitFor({ state: "visible", timeout: 5000 })
-      .then(
-        () => true,
-        () => false,
-      );
-    if (hasScheduler) {
-      await dayButton.click();
-      await this.partOfDayLabel(data.appointmentData.time).click();
-      await expect(dayButton).toBeVisible();
-      await expect(
-        this.partOfDayLabel(data.appointmentData.time),
-      ).toBeVisible();
-    }
+    await this.day(data.appointmentData.day).label.click();
+    await this.timeOfDay(data.appointmentData.time).label.click();
     await this.fillPersonalDetails(data);
   }
 

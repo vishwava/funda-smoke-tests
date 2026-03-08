@@ -157,7 +157,7 @@ Navigates to the first buy listing in Amsterdam and tests agent contact form int
 | Base URL          | `https://www.funda.nl`                  |
 | Browser           | Chromium (Desktop Chrome)               |
 | Viewport          | 1280 × 800                              |
-| Test timeout      | 60 s                                    |
+| Test timeout      | 30 s                                    |
 | Assertion timeout | 5 s                                     |
 | Headless          | Yes (use `test:headed` for visual runs) |
 | Retries           | 0 locally, 1 on CI                      |

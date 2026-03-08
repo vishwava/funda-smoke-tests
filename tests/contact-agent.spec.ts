@@ -63,6 +63,8 @@ test.describe("Contact agent", () => {
       phone,
     });
     await expect(contactAgentPage.viewingRequestCheckbox).toBeChecked();
+    await expect(contactAgentPage.day(appointmentData.day).checkbox).toBeChecked();
+    await expect(contactAgentPage.timeOfDay(appointmentData.time).checkbox).toBeChecked();
     await expect(contactAgentPage.submitButton).toBeVisible();
   });
 });
