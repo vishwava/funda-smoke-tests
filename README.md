@@ -35,7 +35,14 @@ npm run report
 
 ## Setup
 
-Before any test runs, a **global setup** step (`setup/global.setup.ts`) launches a headless Chromium browser, navigates to the funda homepage, dismisses the cookie consent banner, and saves the resulting browser storage state to `.auth/storageState.json`. All subsequent tests inherit this authenticated, cookie-accepted context.
+Before running tests, update the `USER_AGENT` constant in `setup/constants.ts` with your browser's user agent string. Without a valid user agent, requests may be blocked.
+
+```ts
+//setup/constants.ts
+export const USER_AGENT = "Enter user agent here!";
+```
+
+A **global setup** step (`setup/global.setup.ts`) launches a headless Chromium browser, navigates to the funda homepage, dismisses the cookie consent banner, and saves the resulting browser storage state to `.auth/storageState.json`. All subsequent tests inherit this authenticated, cookie-accepted context.
 
 The storage state file is git-ignored and regenerated automatically on every test run.
 
@@ -86,11 +93,12 @@ Navigates to the funda homepage and verifies:
 
 Opens three different search result pages and verifies that listing cards and the city result count header are displayed:
 
-| Test                                | Path                    |
-| ----------------------------------- | ----------------------- |
-| Buy listing cards are visible       | `/koop/amsterdam/`      |
-| Rent listing cards are visible      | `/huur/amsterdam/`      |
-| New build listing cards are visible | `/nieuwbouw/amsterdam/` |
+| Test                                   | Path                    |
+| -------------------------------------- | ----------------------- |
+| Buy listing cards are visible          | `/koop/amsterdam/`      |
+| Rent listing cards are visible         | `/huur/amsterdam/`      |
+| New build listing cards are visible    | `/nieuwbouw/amsterdam/` |
+| Recreational listing cards are visible | `/recreatie/amsterdam/` |    
 
 ---
 
